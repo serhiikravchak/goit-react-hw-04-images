@@ -9,8 +9,7 @@ import { GalleryLoader, ButtonLoader } from 'services/Loader';
 import * as PixabayApi from 'services/PixabayApi';
 import { Wrapper, Title, Load } from './App.styled';
 
-// const fetchPixabay = new PixabayApi();
-// const fullAnswer = fetchPixabay.numberOfResponses();
+
 export function App() {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -49,6 +48,7 @@ export function App() {
 
         setImages(prevState => [...prevState, ...images.hits]);
         setIsLoading(false);
+        setButtonLoader(false)
       } catch (error) {
         setError(true);
         setIsLoading(false);
@@ -86,7 +86,9 @@ export function App() {
 
   const clickLoadMore = () => {
     setIsLoading(true);
+    setButtonLoader(true)
     setPage(page => page + 1);
+    console.log(page)
   };
 
 
