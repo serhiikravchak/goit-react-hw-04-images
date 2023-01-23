@@ -11,6 +11,7 @@ export function Searchbar({ onSubmit }) {
   const [query, setQuery] = useState('');
 
   const handleSubmit = e => {
+    e.preventDefault()
     onSubmit(query);
     setQuery('');
   };
