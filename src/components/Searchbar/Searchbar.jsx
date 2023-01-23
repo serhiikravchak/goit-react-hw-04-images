@@ -1,56 +1,45 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import {
   Header,
   SearchForm,
   SearchFormButton,
   SearchFormInput,
-  Icon
+  Icon,
 } from './SearchBar.styled';
 
+export function Searchbar({ onSubmit }) {
+  const [query, setQuery] = useState('');
 
-export class Searchbar extends Component{
-  state = {
-    query: '',
+  const handleSubmit = e => {
+    onSubmit(query);
+    setQuery('');
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.setState({query: ''})
-  }
+  const handleChange = e => {
+    setQuery(e.target.value.trim());
+  };
 
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value.trim() });
-  }
-
-
-  render() {
-    return (
-      <Header>
-        <SearchForm onSubmit={this.handleSubmit}>
-          <SearchFormButton type="submit">
-            <Icon />
-          </SearchFormButton>
-          <SearchFormInput
-            type="text"
-            name="query"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            onChange={this.handleChange}
-            value={this.state.query}
-          />
-        </SearchForm>
-      </Header>
-    );
-  }
-
+  return (
+    <Header>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchFormButton type="submit">
+          <Icon />
+        </SearchFormButton>
+        <SearchFormInput
+          type="text"
+          name="query"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          onChange={handleChange}
+        />
+      </SearchForm>
+    </Header>
+  );
 }
 
-
 // export const Searchbar = ({ onSubmit }) => {
-  
+
 //   const handleSubmit = (values, { resetForm }) => {
 //     onSubmit(values);
 //     resetForm();
